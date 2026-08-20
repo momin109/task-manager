@@ -87,3 +87,36 @@ export const login = async (
     next(error);
   }
 };
+
+export const getCurrentUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const userId = req.user?.userId;
+
+    if (!userId) {
+      throw new ApiError("User not authenticated", 401);
+    }
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      throw new ApiError("User not found", 404);
+    }
+
+    res.status(200).json({
+      success: true,
+      data: {
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+        },
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
