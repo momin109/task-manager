@@ -1,11 +1,10 @@
-import "./App.css";
+import AppRoutes from "./routes/AppRoutes";
+import { useAuthInitialize } from "./features/auth/useAuthInitialize";
 
 function App() {
-  return (
-    <>
-      <h1 className="text-3xl font-bold text-blue-500">Task Manager</h1>
-    </>
-  );
+  useAuthInitialize();
+
+  return <AppRoutes />;
 }
 
 export default App;
