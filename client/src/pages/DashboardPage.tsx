@@ -16,6 +16,9 @@ import ErrorMessage from "../components/common/ErrorMessage";
 
 import AddTask from "../components/task/AddTask";
 import TaskList from "../components/task/TaskList";
+import { useNavigate } from "react-router-dom";
+
+import { logout } from "../features/auth/authSlice";
 
 import { useTasks } from "../features/task/useTasks";
 
@@ -32,6 +35,7 @@ const DashboardPage = () => {
 
   const dispatch = useAppDispatch();
 
+  const navigate = useNavigate();
   const theme = useAppSelector((state) => state.theme.mode);
 
   const isDarkMode = theme === "dark";
@@ -64,6 +68,12 @@ const DashboardPage = () => {
 
   const completionPercentage =
     totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+
+  //logout
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
+  };
 
   return (
     <div
@@ -255,6 +265,7 @@ const DashboardPage = () => {
               </button>
 
               <button
+                onClick={handleLogout}
                 className={`rounded-lg p-2 transition ${
                   isDarkMode
                     ? "text-slate-400 hover:bg-slate-800 hover:text-red-400"
