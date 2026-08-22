@@ -13,7 +13,7 @@ const app = express();
 app.use(
   cors({
     origin:
-      process.env.CLIENT_URL || "https://task-manager-flax-psi.vercel.app/",
+      process.env.CLIENT_URL || "https://task-manager-flax-psi.vercel.app",
     credentials: true,
   }),
 );
