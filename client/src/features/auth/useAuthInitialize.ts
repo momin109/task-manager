@@ -9,8 +9,15 @@ export const useAuthInitialize = () => {
   const dispatch = useAppDispatch();
 
   const token = useAppSelector((state) => state.auth.token);
+  const user = useAppSelector((state) => state.auth.user);
 
   useEffect(() => {
+    // Login/Register theke already user data thakle, abar fetch korar dorkar nai
+    if (user) {
+      dispatch(finishLoading());
+      return;
+    }
+
     const initializeAuth = async () => {
       if (!token) {
         dispatch(finishLoading());
@@ -18,14 +25,15 @@ export const useAuthInitialize = () => {
       }
 
       try {
-        const user = await getCurrentUser();
+        const currentUser = await getCurrentUser();
 
-        dispatch(setUser(user));
+        dispatch(setUser(currentUser));
       } catch {
         dispatch(logout());
       }
     };
 
     initializeAuth();
-  }, [token, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // ⚠️ shudhu ekbar - app mount howar shomoy chalbe
 };
