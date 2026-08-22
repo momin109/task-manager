@@ -43,7 +43,7 @@ const RegisterPage = () => {
         }),
       );
 
-      navigate("/login");
+      navigate("/");
     },
   });
 
