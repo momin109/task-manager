@@ -13,22 +13,22 @@ export const register = async (
   try {
     const { name, email, password } = req.body;
 
-    // Check existing user
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
       throw new ApiError("User already exists with this email", 409);
     }
 
-    // Hash password
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    // Create user
     const user = await User.create({
       name,
       email,
       password: hashedPassword,
     });
+
+    // ✅ Token generate koro, login er moto
+    const token = generateToken(user._id.toString());
 
     res.status(201).json({
       success: true,
@@ -39,6 +39,7 @@ export const register = async (
           name: user.name,
           email: user.email,
         },
+        token, // ✅ response e token add koro
       },
     });
   } catch (error) {
