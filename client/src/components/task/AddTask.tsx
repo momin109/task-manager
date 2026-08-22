@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Plus, X } from "lucide-react";
 
 import TaskForm from "./TaskForm";
 
@@ -31,23 +32,34 @@ const AddTask = () => {
   return (
     <div>
       <button
+        type="button"
         onClick={() => setIsOpen(true)}
-        className="rounded bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700"
+        className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#514bc4] to-[#6259d8] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-95"
       >
-        + Add Task
+        <Plus className="h-5 w-5" />
+        Add task
       </button>
 
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-lg rounded-lg bg-white p-6 shadow-lg">
-            <div className="mb-5 flex items-center justify-between">
-              <h2 className="text-xl font-bold">Add New Task</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+          <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl dark:bg-[#1d2029]">
+            <div className="mb-6 flex items-center justify-between">
+              <div>
+                <h2 className="text-xl font-bold text-slate-800 dark:text-white">
+                  Add New Task
+                </h2>
+
+                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                  Create a new task to track your work.
+                </p>
+              </div>
 
               <button
+                type="button"
                 onClick={() => setIsOpen(false)}
-                className="text-xl text-gray-500"
+                className="rounded-lg p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800"
               >
-                ×
+                <X className="h-5 w-5" />
               </button>
             </div>
 
@@ -58,7 +70,7 @@ const AddTask = () => {
             />
 
             {mutation.isError && (
-              <p className="mt-3 text-sm text-red-500">
+              <p className="mt-4 text-sm text-red-500">
                 Failed to create task.
               </p>
             )}

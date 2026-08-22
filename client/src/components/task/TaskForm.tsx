@@ -24,6 +24,7 @@ const TaskForm = ({
     formState: { errors },
   } = useForm<TaskFormData>({
     resolver: zodResolver(taskSchema),
+
     defaultValues: {
       title: "",
       description: "",
@@ -43,15 +44,18 @@ const TaskForm = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
+    <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-5">
+      {/* Title */}
       <div>
-        <label className="mb-1 block text-sm font-medium">Title</label>
+        <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">
+          Title
+        </label>
 
         <input
           type="text"
           placeholder="Enter task title"
           {...register("title")}
-          className="w-full rounded border px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
+          className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-[#514bc4] focus:ring-2 focus:ring-[#514bc4]/20 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
         />
 
         {errors.title && (
@@ -59,14 +63,17 @@ const TaskForm = ({
         )}
       </div>
 
+      {/* Description */}
       <div>
-        <label className="mb-1 block text-sm font-medium">Description</label>
+        <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">
+          Description
+        </label>
 
         <textarea
           rows={4}
           placeholder="Enter task description"
           {...register("description")}
-          className="w-full resize-none rounded border px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full resize-none rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-[#514bc4] focus:ring-2 focus:ring-[#514bc4]/20 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
         />
 
         {errors.description && (
@@ -79,7 +86,7 @@ const TaskForm = ({
       <button
         type="submit"
         disabled={isPending}
-        className="w-full rounded bg-blue-600 py-2 font-medium text-white hover:bg-blue-700 disabled:opacity-50"
+        className="h-12 w-full rounded-xl bg-gradient-to-r from-[#514bc4] to-[#6259d8] text-sm font-semibold text-white transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {isPending ? "Please wait..." : submitText}
       </button>
